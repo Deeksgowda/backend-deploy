@@ -1,0 +1,6 @@
+Flask==2.2.2
+openai==0.27.0
+supabase==1.2.0
+PyMuPDF==1.21.1
+python-docx==0.8.11
+reportlab==3.6.12

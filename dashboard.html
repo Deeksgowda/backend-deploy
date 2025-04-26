@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard | Employability Analyzer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        background-color: #0f0f1b;
+        color: #ffffff;
+      }
+
+      .nav {
+        padding: 20px;
+      }
+
+      .nav a {
+        background-color: #9b6bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .nav a:hover {
+        background-color: #7d50e3;
+      }
+
+      .container {
+        padding: 60px 10%;
+      }
+
+      h1 {
+        font-size: 36px;
+        color: #9b6bff;
+        margin-bottom: 30px;
+      }
+
+      .cards {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .card {
+        background-color: #1f1f3d;
+        padding: 30px;
+        border-radius: 12px;
+        flex: 1;
+        min-width: 250px;
+        text-align: center;
+      }
+
+      .card h2 {
+        font-size: 32px;
+        margin-bottom: 10px;
+        color: #ffffff;
+      }
+
+      .card p {
+        font-size: 16px;
+        color: #aaaaaa;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav">
+      <a href="{{ url_for('home') }}">← Home</a>
+    </div>
+
+    <div class="container">
+      <h1>Dashboard Overview</h1>
+      <div class="cards">
+        <div class="card">
+          <h2>{{ stats.total_students }}</h2>
+          <p>Total Students</p>
+        </div>
+        <div class="card">
+          <h2>{{ stats.total_companies }}</h2>
+          <p>Total Companies</p>
+        </div>
+        <div class="card">
+          <h2>{{ stats.analyzed_count }}</h2>
+          <p>Resumes Analyzed</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

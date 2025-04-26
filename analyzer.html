@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Resume Analyzer</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        padding: 40px;
+      }
+
+      .container {
+        width: 700px;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        margin: 0 auto;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      input[type="submit"],
+      button {
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      input[type="submit"]:hover,
+      button:hover {
+        background: #0056b3;
+      }
+
+      .feedback-box {
+        background: #f0f8ff;
+        padding: 20px;
+        border-left: 5px solid #007bff;
+        border-radius: 6px;
+        margin-top: 30px;
+      }
+
+      .feedback-box h3 {
+        color: #007bff;
+        margin-bottom: 15px;
+      }
+
+      .back-button {
+        padding: 10px 20px;
+        background-color: #9b6bff;
+        color: white;
+        border-radius: 6px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .back-button:hover {
+        background-color: #7d50e3;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="padding: 20px">
+      <a href="{{ url_for('home') }}" class="back-button">← Home</a>
+    </div>
+
+    <div class="container">
+      <h2>Resume Analyzer</h2>
+
+      {% if not authorized %}
+      <form method="POST">
+        <label for="code">Enter Access Code or USN:</label>
+        <input type="text" id="code" name="code" required />
+        <input type="submit" value="Submit Code" />
+      </form>
+      {% else %}
+      <form method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="code" value="1234" />
+        <label for="student">Select Student:</label>
+        <select name="student" required>
+          {% for student in students %}
+          <option value="{{ student['student_id'] }}">
+            {{ student['name'] }}
+          </option>
+          {% endfor %}
+        </select>
+
+        <label for="company">Select Company:</label>
+        <select name="company" required>
+          {% for company in companies %}
+          <option value="{{ company['Company Name'] }}">
+            {{ company['Company Name'] }}
+          </option>
+          {% endfor %}
+        </select>
+
+        <label for="resume">Upload Resume (.pdf or .docx):</label>
+        <input type="file" name="resume" accept=".pdf,.docx" required />
+
+        <input type="submit" value="Analyze Resume" />
+      </form>
+
+      {% if feedback %}
+      <div class="feedback-box">
+        <h3>AI Analysis Report</h3>
+        <div>{{ feedback|safe }}</div>
+        <br />
+        <a href="{{ url_for('download_report') }}">
+          <button>Download PDF Report</button>
+        </a>
+      </div>
+      {% endif %} {% endif %}
+    </div>
+  </body>
+</html>
